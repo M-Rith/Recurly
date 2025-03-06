@@ -14,6 +14,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
+      debugShowCheckedModeBanner: false,
       title: 'Flutter GetX Project',
       initialRoute: '/login', // Start with login screen
       getPages: AppPages.routes, // Load defined routes

@@ -6,12 +6,16 @@ class AuthController extends GetxController {
   var isLoggedIn = false.obs; // Reactive login state
 
   void login() {
-    isLoggedIn.value = true; // Update state
-    Get.offAllNamed(AppRoutes.HOME); // Navigate to home screen after login
+    isLoggedIn.value = true;
+    Get.offAllNamed(
+      AppRoutes.HOME,
+    );
   }
 
   void logout() {
-    isLoggedIn.value = false; // Reset state
-    Get.offAllNamed(AppRoutes.LOGIN); // Redirect to login screen
+    isLoggedIn.value = false;
+    Get.offNamed(
+      AppRoutes.LOGIN,
+    );
   }
 }
