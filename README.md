@@ -38,38 +38,6 @@ flutter_getx_project/
 │── .gitignore            # Ignore unnecessary files
 ```
 
-## 🚀 Getting Started
-
-### 1️⃣ Prerequisites
-
-Ensure you have the following installed:
-
-- Flutter SDK (latest stable version) - [Download](https://flutter.dev/docs/get-started/install)
-- Dart SDK (included with Flutter)
-- Android Studio / VS Code (for IDE)
-- Emulator or physical device
-
-### 2️⃣ Installation
-
-Clone the repository:
-
-```sh
-git clone https://github.com/your-repo/flutter_getx_project.git
-cd flutter_getx_project
-```
-
-Install dependencies:
-
-```sh
-flutter pub get
-```
-
-Run the project:
-
-```sh
-flutter run
-```
-
 ## 📌 Key Features
 
 - **GetX for State Management**: Efficient and lightweight state management solution.
@@ -81,30 +49,9 @@ flutter run
 - **Multi-Language Support**: Localization using GetX Translations.
 - **Unit & Integration Testing**: Testing setup included.
 
-## 🛠️ Dependencies
-
-Key dependencies used:
-
-```yaml
-dependencies:
-  flutter:
-    sdk: flutter
-  get: ^4.6.5  # GetX for state management & routing
-  http: ^0.13.4  # API requests
-  shared_preferences: ^2.0.13  # Local storage
-  flutter_localizations:
-    sdk: flutter  # Multi-language support
-  cupertino_icons: ^1.0.4  # iOS style icons
-```
-
-## 📄 License
-
-This project is licensed under the **MIT License**. Feel free to use and modify as needed.
-
----
 
 ### 👨‍💻 Author
 
-Developed by [Your Name] - Feel free to contribute!
+Developed by Huot Monirith - Feel free to contribute!
 
 For any issues, feel free to open a GitHub issue or reach out. 🚀
