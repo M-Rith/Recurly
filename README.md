@@ -1,4 +1,4 @@
-# Flutter GetX Project
+# Recurly App
 
 A Flutter project structured using **GetX** for state management, dependency injection, and routing. This project follows a modular approach to ensure scalability and maintainability.
 
