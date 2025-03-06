@@ -13,11 +13,13 @@ class HomeScreen extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Obx(() => Text(
-                authController.isLoggedIn.value ? "Logged In" : "Logged Out")),
+            Obx(
+              () => Text(
+                  authController.isLoggedIn.value ? "Logged In" : "Logged Out"),
+            ),
             SizedBox(height: 20),
             ElevatedButton(
-              onPressed: authController.logout, // Logout button
+              onPressed: authController.logout,
               child: Text("Logout"),
             ),
           ],

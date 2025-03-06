@@ -9,12 +9,14 @@ class AppPages {
     GetPage(
       name: AppRoutes.LOGIN,
       page: () => LoginScreen(),
-      binding: AuthBinding(), // Attach AuthBinding
+      binding: AuthBinding(),
+      transition: Transition.fadeIn,
     ),
     GetPage(
       name: AppRoutes.HOME,
       page: () => HomeScreen(),
-      binding: AuthBinding(), // Reuse AuthBinding
+      binding: AuthBinding(), 
+      transition: Transition.fadeIn,
     ),
   ];
 }
