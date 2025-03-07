@@ -9,7 +9,6 @@ class LoginScreen extends StatelessWidget {
         Get.find(); // Find existing controller
 
     return Scaffold(
-      appBar: AppBar(title: Text("Login")),
       body: Center(
         child: ElevatedButton(
           onPressed: authController.login, // Call login method

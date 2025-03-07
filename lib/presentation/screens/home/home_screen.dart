@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../../app/controllers/auth_controller.dart';
+import '../../../app/themes/colors.dart';
 
 class HomeScreen extends StatelessWidget {
   @override
@@ -10,19 +11,27 @@ class HomeScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(title: Text("Home")),
       body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Obx(
-              () => Text(
-                  authController.isLoggedIn.value ? "Logged In" : "Logged Out"),
-            ),
-            SizedBox(height: 20),
-            ElevatedButton(
-              onPressed: authController.logout,
-              child: Text("Logout"),
-            ),
-          ],
+        child: Container(
+          color: AppColors.background,
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Obx(
+                () => Text(
+                  authController.isLoggedIn.value ? "Logged In" : "Logged Out",
+                  style: TextStyle(color: AppColors.success),
+                ),
+              ),
+              SizedBox(height: 20),
+              ElevatedButton(
+                onPressed: authController.logout,
+                child: Text(
+                  "Logout",
+                  style: TextStyle(color: AppColors.primary),
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );
