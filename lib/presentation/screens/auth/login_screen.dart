@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../../app/controllers/auth_controller.dart';
 import '../../../app/themes/colors.dart';
+import '../../../app/themes/font_size.dart';
 
 class LoginScreen extends StatelessWidget {
 
@@ -18,7 +19,7 @@ class LoginScreen extends StatelessWidget {
             const Text("Login Screen", style: TextStyle(color: Colors.white)),
             const SizedBox(height: 20),
             const Text("This is a new testing", style: TextStyle(color: Colors.white, fontFamily: "Poppins", fontSize: 20)),
-          const Text("This is a new testing", style: TextStyle(color: Colors.white, fontSize: 20)),
+            const Text("This is a new testing", style: TextStyle(color: Colors.white, fontSize: FontSize.xxl )),
             const SizedBox(height: 20),
             ElevatedButton(
               onPressed: authController.login, // Call login method

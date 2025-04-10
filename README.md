@@ -3,11 +3,14 @@
 A Flutter project structured using **GetX** for state management, dependency injection, and routing. This project follows a modular approach to ensure scalability and maintainability.
 
 ## 📂 Project Structure
-
 ```
 flutter_getx_project/
 │── android/              # Native Android code
 │── ios/                  # Native iOS code
+│── assets/               # Assets to store images, fonts, icons etc
+  ├── fonts/            # Fonts
+  ├── icons/            # Icons
+  └── images/           # Images
 │── lib/
 │ ├── main.dart           # App entry point
 │ ├── app/                # Core application directory
