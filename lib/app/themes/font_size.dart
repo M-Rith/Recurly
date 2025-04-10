@@ -1,9 +1,10 @@
 class FontSize {
-  static const double get xs => 12;
-  static const double get sm => 14;
-  static const double get md => 16;
-  static const double get lg => 18;
-  static const double get xl => 22;
-  static const double get xxl => 26;
-  static const double get xxxl => 32;
+  static const double xs = 12;
+  static const double sm= 14;
+  static const double md = 16;
+  static const double lg = 18;
+  static const double xl = 22;
+  static const double xxl = 26;
+  static const double xxxl = 32;
 }
+
