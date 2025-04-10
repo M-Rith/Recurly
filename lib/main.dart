@@ -16,6 +16,9 @@ class MyApp extends StatelessWidget {
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Flutter GetX Project',
+      theme: ThemeData(
+        fontFamily: 'Poppins',
+      ),
       initialRoute: '/login', // Start with login screen
       getPages: AppPages.routes, // Load defined routes
     );
