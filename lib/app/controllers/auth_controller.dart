@@ -18,4 +18,21 @@ class AuthController extends GetxController {
       AppRoutes.LOGIN,
     );
   }
+  void navigateToLogin() {
+    Get.offNamed(
+      AppRoutes.LOGIN,
+    );
+  }
+
+  void navigateToSignup() {
+    Get.offNamed(
+      AppRoutes.SIGN_UP,
+    );
+  }
+  
+  void navigateToAuth() {
+    Get.offNamed(
+      AppRoutes.AUTH,
+    );
+  }
 }
