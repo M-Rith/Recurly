@@ -4,7 +4,6 @@ import '../../../app/themes/font_size.dart';
 import '../../../app/themes/spacing.dart';
 import 'package:get/get.dart';
 import '../../../app/controllers/auth_controller.dart';
-
 class AuthScreen extends StatelessWidget {
 
  const AuthScreen({super.key});
@@ -30,6 +29,13 @@ class AuthScreen extends StatelessWidget {
                 color: AppColors.primary,
                 fontWeight: FontWeight.bold,
               ),
+            ),
+            const SizedBox(
+              height: Spacing.lg,
+            ),
+            Image.asset(
+              'assets/images/testing.png',
+                height: 300,
             ),
             const Spacer(),
             const Text(

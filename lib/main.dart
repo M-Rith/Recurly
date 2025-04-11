@@ -3,11 +3,16 @@ import 'package:get/get.dart';
 import 'package:recurly/app/routes/app_routes.dart';
 import 'app/routes/app_pages.dart';
 import 'app/controllers/auth_controller.dart';
-
+import 'package:flutter/services.dart';
 void main() {
   WidgetsFlutterBinding.ensureInitialized(); // Ensure Flutter is initialized
   Get.put(AuthController()); // Register AuthController globally
-
+  SystemChrome.setSystemUIOverlayStyle(
+    const SystemUiOverlayStyle(
+      statusBarColor: Colors.white,
+      statusBarIconBrightness: Brightness.dark,
+    ),
+  );
   runApp(MyApp());
 }
 
