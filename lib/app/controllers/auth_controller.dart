@@ -4,6 +4,9 @@ import '../routes/app_routes.dart';
 
 class AuthController extends GetxController {
   var isLoggedIn = false.obs; // Reactive login state
+  var email = "".obs;
+  var password = "".obs;
+
 
   void login() {
     isLoggedIn.value = true;
