@@ -20,9 +20,6 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(fontFamily: 'Poppins'),
       initialRoute: AppRoutes.AUTH,
       getPages: AppPages.routes,
-      builder: (context, child) {
-        return SafeArea(child: child!);
-      },
     );
   }
 }
