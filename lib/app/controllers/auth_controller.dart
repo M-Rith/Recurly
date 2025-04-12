@@ -42,5 +42,10 @@ class AuthController extends GetxController {
       AppRoutes.SPLASH_SCREEN,
     );
   }
+  void navigateToForgetPassword() {
+    Get.offNamed(
+      AppRoutes.FORGET_PASSWORD,
+    );
+  }
 
 }
