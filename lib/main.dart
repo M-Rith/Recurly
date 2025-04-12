@@ -8,13 +8,14 @@ void main() {
   WidgetsFlutterBinding.ensureInitialized(); // Ensure Flutter is initialized
   Get.put(AuthController()); // Register AuthController globally
   SystemChrome.setSystemUIOverlayStyle(
-    const SystemUiOverlayStyle(
-      statusBarColor: Colors.white,
-      statusBarIconBrightness: Brightness.dark,
-    ),
-  );
+      SystemUiOverlayStyle(
+        statusBarColor: Colors.blue, // Set the color of the status bar
+        statusBarIconBrightness: Brightness.light, // Set the icon brightness (light or dark)
+      ),
+    );
   runApp(MyApp());
 }
+
 
 class MyApp extends StatelessWidget {
   @override
