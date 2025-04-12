@@ -58,6 +58,10 @@ class _CustomizedTextFieldState extends State<CustomizedTextField> {
             icon: HeroIcon(widget.suffixIcon!, color: AppColors.white),
           ),
         hintText: widget.hintText,
+        hintStyle: const TextStyle(
+          fontSize: FontSize.sm,
+          color: AppColors.accent,
+        ),
         filled: true,
         fillColor: AppColors.background,
         contentPadding: const EdgeInsets.symmetric(

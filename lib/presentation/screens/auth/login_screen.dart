@@ -47,9 +47,9 @@ class _LoginScreenState extends State<LoginScreen> {
         physics: isKeyboardOpen
             ? const AlwaysScrollableScrollPhysics()
             : const NeverScrollableScrollPhysics(),
-        padding: const EdgeInsets.symmetric(
-          horizontal: Spacing.md,
-          vertical: Spacing.md,
+        padding: const EdgeInsets.only(
+          left: Spacing.md,
+          right: Spacing.md,
         ),
         children: [
           const SizedBox(height: Spacing.xl * 2),
@@ -61,6 +61,7 @@ class _LoginScreenState extends State<LoginScreen> {
               fontWeight: FontWeight.bold,
             ),
           ),
+          const SizedBox(height: Spacing.sm),
           const Text(
             "Hello again, you've been missed !",
             style: TextStyle(fontSize: FontSize.sm, color: AppColors.secondary),
@@ -117,7 +118,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   width: double.infinity,
                   child: TextButton(
                     onPressed: () {
-                      // authController.navigateToForgotPassword();
+                      authController.navigateToForgetPassword();
                     },
                     child: const Text(
                       "Forgot Password?",

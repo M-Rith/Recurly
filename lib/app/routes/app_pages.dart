@@ -6,7 +6,7 @@ import '../routes/app_routes.dart';
 import '../../presentation/screens/auth/auth_screen.dart';
 import '../../presentation/screens/auth/sign_up_screen.dart';
 import '../../presentation/screens/welcome/splash_screen.dart';
-
+import '../../presentation/screens/auth/forget_password.dart';
 class AppPages {
   static final routes = [
     GetPage(
@@ -38,6 +38,12 @@ class AppPages {
       page: () => SplashScreen(),
       binding: AuthBinding(),
       transition: Transition.fadeIn,
-    )
+    ),
+    GetPage(
+      name: AppRoutes.FORGET_PASSWORD,
+      page: () => ForgetPasswordScreen(),
+      binding: AuthBinding(),
+      transition: Transition.fadeIn,
+    ),
   ];
 }
