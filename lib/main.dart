@@ -24,7 +24,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: "Flutter GetX Project",
       theme: ThemeData(fontFamily: 'Poppins'),
-      initialRoute: AppRoutes.AUTH,
+      initialRoute: AppRoutes.SPLASH_SCREEN,
       getPages: AppPages.routes,
     );
   }

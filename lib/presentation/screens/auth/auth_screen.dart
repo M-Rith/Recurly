@@ -104,7 +104,7 @@ class AuthScreen extends StatelessWidget {
                   ),
                 ),
                 onPressed: () {
-                  authController.navigateToSignup();
+                  authController.navigateToSplash();
                 },
                 child: const Text(
                   'Sign up',

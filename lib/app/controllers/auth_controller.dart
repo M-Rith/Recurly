@@ -7,20 +7,19 @@ class AuthController extends GetxController {
   var email = "".obs;
   var password = "".obs;
 
-
   void login() {
     isLoggedIn.value = true;
     Get.offAllNamed(
       AppRoutes.HOME,
     );
   }
-
   void logout() {
     isLoggedIn.value = false;
     Get.offNamed(
       AppRoutes.LOGIN,
     );
   }
+
   void navigateToLogin() {
     Get.offNamed(
       AppRoutes.LOGIN,
@@ -32,10 +31,16 @@ class AuthController extends GetxController {
       AppRoutes.SIGN_UP,
     );
   }
-  
+
   void navigateToAuth() {
     Get.offNamed(
       AppRoutes.AUTH,
     );
   }
+  void navigateToSplash() {
+    Get.offNamed(
+      AppRoutes.SPLASH_SCREEN,
+    );
+  }
+
 }
