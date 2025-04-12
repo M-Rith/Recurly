@@ -5,6 +5,8 @@ import '../../presentation/screens/home/home_screen.dart';
 import '../routes/app_routes.dart';
 import '../../presentation/screens/auth/auth_screen.dart';
 import '../../presentation/screens/auth/sign_up_screen.dart';
+import '../../presentation/screens/welcome/splash_screen.dart';
+
 class AppPages {
   static final routes = [
     GetPage(
@@ -16,7 +18,7 @@ class AppPages {
     GetPage(
       name: AppRoutes.HOME,
       page: () => HomeScreen(),
-      binding: AuthBinding(), 
+      binding: AuthBinding(),
       transition: Transition.fadeIn,
     ),
     GetPage(
@@ -31,5 +33,11 @@ class AppPages {
       binding: AuthBinding(),
       transition: Transition.fadeIn,
     ),
+    GetPage(
+      name: AppRoutes.SPLASH_SCREEN,
+      page: () => SplashScreen(),
+      binding: AuthBinding(),
+      transition: Transition.fadeIn,
+    )
   ];
 }
