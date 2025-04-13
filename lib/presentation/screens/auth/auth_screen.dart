@@ -4,6 +4,7 @@ import '../../../app/themes/font_size.dart';
 import '../../../app/themes/spacing.dart';
 import 'package:get/get.dart';
 import '../../../app/controllers/auth_controller.dart';
+import 'package:recurly/presentation/widgets/custom_button.dart';
 class AuthScreen extends StatelessWidget {
 
  const AuthScreen({super.key});
@@ -62,59 +63,24 @@ class AuthScreen extends StatelessWidget {
             ),
 
             // Login Button
-            SizedBox(
-              width: double.infinity,
-              child: ElevatedButton(
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.white,
-                  foregroundColor: Colors.blue,
-                  padding: const EdgeInsets.symmetric(vertical: 16),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(12),
-                  ),
-                ),
-                onPressed: () {
-                  authController.navigateToLogin();
-                },
-                child: const Text(
-                  'Log in',
-                  style: TextStyle(
-                    color: AppColors.primary,
-                    fontSize: FontSize.md,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-              ),
-            ),
 
+            CustomButton(
+              title: "Log in",
+              onTap: () {
+                authController.navigateToLogin();
+              },
+            ),
             const SizedBox(
               height: Spacing.lg,
             ),
 
             // Signup Button
-            SizedBox(
-              width: double.infinity,
-              child: OutlinedButton(
-                style: OutlinedButton.styleFrom(
-                  foregroundColor: Colors.white,
-                  side: const BorderSide(color: AppColors.white),
-                  padding: const EdgeInsets.symmetric(vertical: 16),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(12),
-                  ),
-                ),
-                onPressed: () {
-                  authController.navigateToForgetPassword();
-                },
-                child: const Text(
-                  'Sign up',
-                  style: TextStyle(
-                    color: AppColors.white,
-                    fontSize: FontSize.md,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-              ),
+            CustomButton(
+              title: "Sign up",
+              onTap: () {
+                authController.navigateToSignup();
+              },
+              isOutlined: true,
             ),
             const SizedBox(
               height: Spacing.xl * 2,

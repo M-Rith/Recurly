@@ -4,18 +4,19 @@ import 'package:recurly/app/routes/app_routes.dart';
 import 'app/routes/app_pages.dart';
 import 'app/controllers/auth_controller.dart';
 import 'package:flutter/services.dart';
+
 void main() {
   WidgetsFlutterBinding.ensureInitialized(); // Ensure Flutter is initialized
   Get.put(AuthController()); // Register AuthController globally
   SystemChrome.setSystemUIOverlayStyle(
-      SystemUiOverlayStyle(
-        statusBarColor: Colors.blue, // Set the color of the status bar
-        statusBarIconBrightness: Brightness.light, // Set the icon brightness (light or dark)
-      ),
-    );
+    const SystemUiOverlayStyle(
+      statusBarColor: Colors.blue, // Set the color of the status bar
+      statusBarIconBrightness:
+          Brightness.light, // Set the icon brightness (light or dark)
+    ),
+  );
   runApp(MyApp());
 }
-
 
 class MyApp extends StatelessWidget {
   @override
