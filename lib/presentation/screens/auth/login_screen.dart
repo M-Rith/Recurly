@@ -272,7 +272,7 @@ class _LoginScreenState extends State<LoginScreen> {
           const SizedBox(height: Spacing.md),
           Row(mainAxisAlignment: MainAxisAlignment.center, children: [
             const Text(
-              "Don't have an account?",
+              "Don't have an account ?",
               style: TextStyle(fontSize: FontSize.sm, color: AppColors.white),
             ),
             const SizedBox(width: Spacing.xs),

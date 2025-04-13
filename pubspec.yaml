@@ -38,6 +38,7 @@ dependencies:
   get: ^4.7.2
   heroicons: ^0.11.0
   animated_text_kit: ^4.2.3
+  flutter_native_splash: ^2.4.4
 
 dev_dependencies:
   flutter_test:
@@ -86,3 +87,7 @@ flutter:
         - asset: assets/fonts/Poppins-Bold.ttf
   
   # see https://flutter.dev/to/font-from-package
+flutter_native_splash:
+  color: "#023162"
+  android: true
+  ios: true
