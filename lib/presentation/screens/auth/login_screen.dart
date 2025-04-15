@@ -42,6 +42,24 @@ class _LoginScreenState extends State<LoginScreen> {
 
     final isKeyboardOpen = MediaQuery.of(context).viewInsets.bottom > 0;
 
+    void handleLogin() async {
+      try {
+        final user = await authController.loginWithEmail(
+          email: emailController.text,
+          password: passwordController.text,
+        );
+
+        if (user != null) {
+          print("Login successful: ${user.email}");
+          // Navigate to home or show success
+          authController.login();
+        }
+      } catch (e) {
+        // Show error in Snackbar or Dialog
+        print("Login failed: $e");
+      }
+    }
+
     return Scaffold(
       backgroundColor: AppColors.background,
       body: ListView(
@@ -138,7 +156,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   title: "Login",
                   onTap: () {
                     if (_formKey.currentState!.validate()) {
-                      authController.login();
+                      handleLogin();
                     } else {
                       print("Form is not valid");
                     }
