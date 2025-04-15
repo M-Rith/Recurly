@@ -4,9 +4,13 @@ import 'package:recurly/app/routes/app_routes.dart';
 import 'app/routes/app_pages.dart';
 import 'app/controllers/auth_controller.dart';
 import 'package:flutter/services.dart';
-
-void main() {
+import 'package:firebase_core/firebase_core.dart';
+import 'firebase_options.dart';
+void main() async {
   WidgetsFlutterBinding.ensureInitialized(); // Ensure Flutter is initialized
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
   Get.put(AuthController()); // Register AuthController globally
   SystemChrome.setSystemUIOverlayStyle(
     const SystemUiOverlayStyle(
