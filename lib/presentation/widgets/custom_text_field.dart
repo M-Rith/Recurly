@@ -49,6 +49,10 @@ class _CustomizedTextFieldState extends State<CustomizedTextField> {
           fontSize: FontSize.sm,
           color: AppColors.white,
         ),
+        errorStyle: const TextStyle(
+          fontSize: FontSize.xs,
+          color: AppColors.error,
+        ),
         suffixIcon: widget.suffixIcon == null
             ? null
         : IconButton(

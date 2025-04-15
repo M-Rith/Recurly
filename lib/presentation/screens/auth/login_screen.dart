@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:recurly/presentation/widgets/custom_button.dart';
 import '../../../app/controllers/auth_controller.dart';
 import '../../../app/themes/colors.dart';
 import '../../../app/themes/font_size.dart';
@@ -133,38 +134,17 @@ class _LoginScreenState extends State<LoginScreen> {
                 const SizedBox(
                   height: Spacing.lg,
                 ),
-                SizedBox(
-                  width: double.infinity,
-                  child: ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: Colors.white,
-                      foregroundColor: Colors.blue,
-                      padding: const EdgeInsets.symmetric(vertical: 16),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(12),
-                      ),
-                    ),
-                    onPressed: () {
-                      if (_formKey.currentState!.validate()) {
-                        print(emailController.text);
-                        print(passwordController.text);
-                        authController.login();
-                      } else {
-                        print("Form is not valid");
-                      }
-                      // authController.login();
-                    },
-                    child: const Text(
-                      'Log in',
-                      style: TextStyle(
-                        color: AppColors.primary,
-                        fontSize: FontSize.md,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                  ),
+                CustomButton(
+                  title: "Login",
+                  onTap: () {
+                    if (_formKey.currentState!.validate()) {
+                      authController.login();
+                    } else {
+                      print("Form is not valid");
+                    }
+                  },
                 ),
-                const SizedBox(height: Spacing.xl),
+                const SizedBox(height: Spacing.lg),
                 const Row(
                   children: [
                     Expanded(
@@ -191,7 +171,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     ),
                   ],
                 ),
-                const SizedBox(height: Spacing.xl),
+                const SizedBox(height: Spacing.lg),
                 Row(
                   children: [
                     // Login with Google
