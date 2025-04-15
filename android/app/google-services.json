@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "956323306774",
+    "project_id": "recurly-d9ef4",
+    "storage_bucket": "recurly-d9ef4.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:956323306774:android:f244c1bb2dc648e96a4437",
+        "android_client_info": {
+          "package_name": "com.monirith.recurly"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDx6xaRX4NkkUJMCtf3h-MEaB3fbtZZbZQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -1,4 +1,4 @@
-package com.example.recurly
+package com.monirith.recurly
 
 import io.flutter.embedding.android.FlutterActivity
 
