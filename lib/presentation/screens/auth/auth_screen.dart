@@ -59,11 +59,10 @@ class AuthScreen extends StatelessWidget {
               ),
             ),
             const SizedBox(
-              height: Spacing.xl,
+              height: Spacing.lg,
             ),
 
             // Login Button
-
             CustomButton(
               title: "Log in",
               onTap: () {
