@@ -26,6 +26,7 @@ class _LoginScreenState extends State<LoginScreen> {
   final FocusNode passwordFocusNode = FocusNode();
 
   var showPassword = false;
+  var _isLoading = false;
 
   @override
   void dispose() {
@@ -41,24 +42,23 @@ class _LoginScreenState extends State<LoginScreen> {
     final AuthController authController = Get.find();
 
     final isKeyboardOpen = MediaQuery.of(context).viewInsets.bottom > 0;
-
-    void handleLogin() async {
-      try {
-        final user = await authController.loginWithEmail(
-          email: emailController.text,
-          password: passwordController.text,
-        );
-
-        if (user != null) {
-          print("Login successful: ${user.email}");
-          // Navigate to home or show success
-          authController.login();
-        }
-      } catch (e) {
-        // Show error in Snackbar or Dialog
-        print("Login failed: $e");
-      }
-    }
+    // void handleLogin() async {
+    //   try {
+    //     final user = await authController.loginWithEmail(
+    //       email: emailController.text,
+    //       password: passwordController.text,
+    //     );
+    //
+    //     if (user != null) {
+    //       print("Login successful: ${user.email}");
+    //       // Navigate to home or show success
+    //       authController.login();
+    //     }
+    //   } catch (e) {
+    //     // Show error in Snackbar or Dialog
+    //     print("Login failed: $e");
+    //   }
+    // }
 
     return Scaffold(
       backgroundColor: AppColors.background,
@@ -154,12 +154,25 @@ class _LoginScreenState extends State<LoginScreen> {
                 ),
                 CustomButton(
                   title: "Login",
-                  onTap: () {
-                    if (_formKey.currentState!.validate()) {
-                      handleLogin();
-                    } else {
-                      print("Form is not valid");
-                    }
+                  isLoading: _isLoading,
+                  onTap: () async {
+                    setState(() {
+                      _isLoading = true;
+                    });
+                    await Future.delayed(Duration(seconds: 5));
+                    setState(() {
+                      _isLoading = false;
+                    });
+                    //   if (_formKey.currentState!.validate()) {
+                    //     // handleLogin();
+                    //     setState(() {
+                    //       _isLoading = true;
+                    //     });
+                    //     print(_isLoading);
+                    //   } else {
+                    //     print("Form is not valid");
+                    //   }
+                    // },
                   },
                 ),
                 const SizedBox(height: Spacing.lg),
