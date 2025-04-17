@@ -14,4 +14,5 @@ class AppColors {
   static const Color card = Color(0xFF1E1E1E);
   static const Color success = Color(0xFF4CAF50);
   static const Color white = Color(0xFFFFFFFF);
+  static const Color disabled = Color(0xFFBDBDBD); // Light grey
 }

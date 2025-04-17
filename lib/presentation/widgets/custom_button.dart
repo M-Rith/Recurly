@@ -7,19 +7,25 @@ class CustomButton extends StatelessWidget {
   final String title;
   final Function onTap;
   final bool? isOutlined;
+  final bool? isLoading;
   const CustomButton(
-      {super.key, required this.title, required this.onTap, this.isOutlined = false });
+      {super.key,
+      required this.title,
+      required this.onTap,
+      this.isOutlined = false,
+      this.isLoading = false});
 
   @override
   Widget build(BuildContext context) {
     return SizedBox(
       width: double.infinity,
+      height: Spacing.xxl,
       child: isOutlined == true
           ? OutlinedButton(
               style: OutlinedButton.styleFrom(
                 foregroundColor: Colors.white,
                 side: const BorderSide(color: AppColors.white),
-                padding: const EdgeInsets.symmetric(vertical: Spacing.md),
+                padding: const EdgeInsets.symmetric(vertical: 100),
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(Spacing.md),
                 ),
@@ -40,7 +46,6 @@ class CustomButton extends StatelessWidget {
               style: ElevatedButton.styleFrom(
                 backgroundColor: Colors.white,
                 foregroundColor: Colors.blue,
-                padding: const EdgeInsets.symmetric(vertical: Spacing.md),
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(Spacing.md),
                 ),
