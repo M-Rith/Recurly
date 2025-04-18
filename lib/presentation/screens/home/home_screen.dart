@@ -8,6 +8,8 @@ class HomeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final AuthController authController = Get.find(); // Get controller instance
 
+    print(authController.isLoggedIn.value);
+    print(authController.user.value);
     return Scaffold(
       appBar: AppBar(title: Text("Home")),
       body: Center(

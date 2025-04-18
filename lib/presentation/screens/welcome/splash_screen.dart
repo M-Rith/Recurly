@@ -18,8 +18,14 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   void initState() {
     super.initState();
+    authController.loadUser();
     Future.delayed(const Duration(seconds: 3), () {
-      authController.navigateToAuth();
+      if (authController.user.value != null) {
+        authController.login();
+      }
+      else {
+        authController.navigateToLogin();
+      }
     });
   }
 
