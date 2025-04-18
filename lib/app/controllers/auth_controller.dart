@@ -55,7 +55,7 @@ class AuthController extends GetxController {
     try {
       isLoading.value = true; // Set loading to true when login starts
       User? user = await loginWithEmail(email: email, password: password);
-
+      print(user);
       if (user != null) {
         Get.offAllNamed(AppRoutes.HOME);
       } else {
