@@ -8,7 +8,6 @@ import '../../../app/themes/spacing.dart';
 import 'package:heroicons/heroicons.dart';
 import 'package:recurly/presentation/widgets/custom_text_field.dart';
 
-import '../../../app/utils/email_validate.dart';
 import 'package:recurly/presentation/widgets/custom_snackbar.dart';
 
 import 'package:recurly/app/data/models/status.dart';
@@ -29,7 +28,6 @@ class _LoginScreenState extends State<LoginScreen> {
   final FocusNode passwordFocusNode = FocusNode();
 
   var showPassword = false;
-  var _isLoading = false;
 
   @override
   void dispose() {
@@ -45,33 +43,21 @@ class _LoginScreenState extends State<LoginScreen> {
     final AuthController authController = Get.find();
 
     final isKeyboardOpen = MediaQuery.of(context).viewInsets.bottom > 0;
-
     void handleLogin() async {
-      setState(() {
-        _isLoading = true;
-      });
+      FocusScope.of(context).requestFocus(FocusNode());
       try {
-        final user = await authController.loginWithEmail(
-          email: emailController.text,
-          password: passwordController.text,
+        await authController.loginWithEmailAndPasssword(
+          emailController.text,
+          passwordController.text,
         );
-
-        if (user != null) {
-          // Navigate to home or show success
-          authController.login();
-        }
       } catch (e) {
-        // Show error in Snackbar or Dialog
         showCustomSnackbar(
           title: "Login Failed",
           status: MessageStatus.error,
           message: e.toString(),
           context: context,
-        );
+        ); // No semicolon here
       }
-      setState(() {
-        _isLoading = false;
-      });
     }
 
     return Scaffold(
@@ -115,8 +101,8 @@ class _LoginScreenState extends State<LoginScreen> {
                     if (value == null || value.isEmpty) {
                       return 'Email is required';
                     }
-                    if (!isEmail(value)) {
-                      return 'Invalid email';
+                    if (!GetUtils.isEmail(value)) {
+                      return "Invalid email";
                     }
                     return null;
                   },
@@ -166,15 +152,17 @@ class _LoginScreenState extends State<LoginScreen> {
                 const SizedBox(
                   height: Spacing.lg,
                 ),
-                CustomButton(
-                  title: "Login",
-                  isLoading: _isLoading,
-                  onTap: () async {
-                    if (_formKey.currentState!.validate()) {
-                      handleLogin();
-                    }
-                  },
-                ),
+                Obx(() {
+                  return CustomButton(
+                    title: "Login",
+                    isLoading: authController.isLoading.value,
+                    onTap: () {
+                      if (_formKey.currentState!.validate()) {
+                        handleLogin();
+                      }
+                    },
+                  );
+                }),
                 const SizedBox(height: Spacing.lg),
                 const Row(
                   children: [

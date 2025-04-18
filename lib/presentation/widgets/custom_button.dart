@@ -17,6 +17,7 @@ class CustomButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) { 
+    print(isLoading);
     return SizedBox(
       width: double.infinity,
       height: Spacing.xxl,

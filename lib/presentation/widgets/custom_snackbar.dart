@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:another_flushbar/flushbar.dart';
 import 'package:recurly/app/data/models/status.dart';
 import 'package:recurly/app/themes/colors.dart';
 import 'package:recurly/app/themes/font_size.dart';
 import 'package:recurly/app/themes/spacing.dart';
+import 'package:get/get.dart';
 
 void showCustomSnackbar({
   required String title,
@@ -32,21 +32,15 @@ void showCustomSnackbar({
       color = AppColors.info;
       icon = Icons.info_outline;
   }
-
-  Flushbar(
-    title: title,
-    message: message,
-    backgroundColor: AppColors.card.withOpacity(0.4) ,
+  Get.snackbar(
+    title,
+    message,
+    colorText: AppColors.white,
     icon: Icon(
       icon,
       size: FontSize.xxl,
       color: color,
     ),
-    duration: const Duration(seconds: 3),
-    leftBarIndicatorColor: color,
-    margin: EdgeInsets.all(Spacing.sm),
-    borderRadius: BorderRadius.circular(Spacing.sm),
-    flushbarPosition: FlushbarPosition.BOTTOM,
-  ).show(context);
+    snackPosition: SnackPosition.BOTTOM,
+  );
 }
-

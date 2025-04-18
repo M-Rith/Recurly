@@ -8,7 +8,7 @@ import 'package:recurly/presentation/widgets/custom_appbar.dart';
 import 'package:recurly/presentation/widgets/custom_button.dart';
 import 'package:recurly/presentation/widgets/custom_text_field.dart';
 import '../../../app/controllers/auth_controller.dart';
-import '../../../app/utils/email_validate.dart';
+
 
 class ForgetPasswordScreen extends StatefulWidget {
   const ForgetPasswordScreen({super.key});
@@ -72,7 +72,7 @@ class _ForgetPasswordScreenState extends State<ForgetPasswordScreen> {
                   if (value == null || value.isEmpty) {
                     return 'Email is required';
                   }
-                  if (!isEmail(value)) {
+                  if (!GetUtils.isEmail(value)) {
                     return 'Invalid email';
                   }
                   return null;
