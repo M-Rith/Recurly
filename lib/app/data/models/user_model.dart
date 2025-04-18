@@ -1,13 +1,13 @@
 import 'package:hive/hive.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
-part 'user_model.g.dart';  // The generated file for Hive
+part 'user_model.g.dart';  // For Hive adapter generation
 
 @HiveType(typeId: 0)
 class UserModel {
   @HiveField(0)
   final String uid;
-  
+
   @HiveField(1)
   final String email;
 
@@ -30,11 +30,27 @@ class UserModel {
   final String refreshToken;
 
   @HiveField(8)
-  final UserMetadata metadata;
+  final String providerId;  // Combine providerData into a single field
 
   @HiveField(9)
-  final List<UserInfo> providerData;
+  final String? providerDisplayName;
 
+  @HiveField(10)
+  final String? providerEmail;
+
+  @HiveField(11)
+  final String? providerPhoneNumber;
+
+  @HiveField(12)
+  final String? providerPhotoURL;
+
+  @HiveField(13)
+  final DateTime? creationTime;
+
+  @HiveField(14)
+  final DateTime? lastSignInTime;
+
+  // Constructor for UserModel
   UserModel({
     required this.uid,
     required this.email,
@@ -44,11 +60,16 @@ class UserModel {
     this.phoneNumber,
     this.photoURL,
     required this.refreshToken,
-    required this.metadata,
-    required this.providerData,
+    required this.providerId,
+    this.providerDisplayName,
+    this.providerEmail,
+    this.providerPhoneNumber,
+    this.providerPhotoURL,
+    this.creationTime,
+    this.lastSignInTime,
   });
 
-  // Factory constructor to convert Firebase User to UserModel
+  // Factory constructor to convert FirebaseUser to UserModel
   factory UserModel.fromFirebaseUser(User user) {
     return UserModel(
       uid: user.uid,
@@ -59,9 +80,35 @@ class UserModel {
       phoneNumber: user.phoneNumber,
       photoURL: user.photoURL,
       refreshToken: user.refreshToken ?? '',
-      metadata: user.metadata,
-      providerData: user.providerData,
+      providerId: user.providerData.isNotEmpty ? user.providerData[0].providerId : '',
+      providerDisplayName: user.providerData.isNotEmpty ? user.providerData[0].displayName : '',
+      providerEmail: user.providerData.isNotEmpty ? user.providerData[0].email : '',
+      providerPhoneNumber: user.providerData.isNotEmpty ? user.providerData[0].phoneNumber : '',
+      providerPhotoURL: user.providerData.isNotEmpty ? user.providerData[0].photoURL : '',
+      creationTime: user.metadata.creationTime,
+      lastSignInTime: user.metadata.lastSignInTime,
     );
+  }
+
+  // Method to store user data in Hive
+  Map<String, dynamic> toJson() {
+    return {
+      'uid': uid,
+      'email': email,
+      'displayName': displayName,
+      'isEmailVerified': isEmailVerified,
+      'isAnonymous': isAnonymous,
+      'phoneNumber': phoneNumber,
+      'photoURL': photoURL,
+      'refreshToken': refreshToken,
+      'providerId': providerId,
+      'providerDisplayName': providerDisplayName,
+      'providerEmail': providerEmail,
+      'providerPhoneNumber': providerPhoneNumber,
+      'providerPhotoURL': providerPhotoURL,
+      'creationTime': creationTime?.toIso8601String(),
+      'lastSignInTime': lastSignInTime?.toIso8601String(),
+    };
   }
 }
 

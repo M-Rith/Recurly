@@ -22,12 +22,23 @@ class LoginScreen extends StatefulWidget {
 class _LoginScreenState extends State<LoginScreen> {
   final _formKey = GlobalKey<FormState>();
 
+  final AuthController authController = Get.find();
   final TextEditingController emailController = TextEditingController();
   final FocusNode emailFocusNode = FocusNode();
   final TextEditingController passwordController = TextEditingController();
   final FocusNode passwordFocusNode = FocusNode();
 
   var showPassword = false;
+  @override
+  void initState()  {
+    // TODO: implement initState
+
+    var user = authController.user.value;
+    if (user != null) {
+      print(user.toJson());
+    }
+    super.initState();
+  }
 
   @override
   void dispose() {
@@ -40,8 +51,7 @@ class _LoginScreenState extends State<LoginScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final AuthController authController = Get.find();
-
+    print(authController.user.value);
     final isKeyboardOpen = MediaQuery.of(context).viewInsets.bottom > 0;
     void handleLogin() async {
       FocusScope.of(context).requestFocus(FocusNode());
@@ -63,13 +73,11 @@ class _LoginScreenState extends State<LoginScreen> {
     return Scaffold(
       backgroundColor: AppColors.background,
       body: ListView(
-        physics: isKeyboardOpen
-            ? const AlwaysScrollableScrollPhysics()
-            : const NeverScrollableScrollPhysics(),
-        padding: const EdgeInsets.only(
-          left: Spacing.md,
-          right: Spacing.md,
-        ),
+        physics:
+            isKeyboardOpen
+                ? const AlwaysScrollableScrollPhysics()
+                : const NeverScrollableScrollPhysics(),
+        padding: const EdgeInsets.only(left: Spacing.md, right: Spacing.md),
         children: [
           const SizedBox(height: Spacing.xl * 2),
           const Text(
@@ -107,9 +115,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     return null;
                   },
                 ),
-                const SizedBox(
-                  height: Spacing.md,
-                ),
+                const SizedBox(height: Spacing.md),
                 CustomizedTextField(
                   hintText: 'Password',
                   labelText: 'Password',
@@ -149,9 +155,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     ),
                   ),
                 ),
-                const SizedBox(
-                  height: Spacing.lg,
-                ),
+                const SizedBox(height: Spacing.lg),
                 Obx(() {
                   return CustomButton(
                     title: "Login",
@@ -167,10 +171,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 const Row(
                   children: [
                     Expanded(
-                      child: Divider(
-                        color: AppColors.secondary,
-                        thickness: 1,
-                      ),
+                      child: Divider(color: AppColors.secondary, thickness: 1),
                     ),
                     Padding(
                       padding: EdgeInsets.symmetric(horizontal: 12.0),
@@ -183,10 +184,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       ),
                     ),
                     Expanded(
-                      child: Divider(
-                        color: AppColors.secondary,
-                        thickness: 1,
-                      ),
+                      child: Divider(color: AppColors.secondary, thickness: 1),
                     ),
                   ],
                 ),
@@ -219,17 +217,13 @@ class _LoginScreenState extends State<LoginScreen> {
                             const SizedBox(width: Spacing.sm),
                             const Text(
                               "Google",
-                              style: TextStyle(
-                                color: AppColors.white,
-                              ),
+                              style: TextStyle(color: AppColors.white),
                             ),
                           ],
                         ),
                       ),
                     ),
-                    const SizedBox(
-                      width: Spacing.md,
-                    ),
+                    const SizedBox(width: Spacing.md),
                     Expanded(
                       child: OutlinedButton(
                         style: OutlinedButton.styleFrom(
@@ -255,9 +249,7 @@ class _LoginScreenState extends State<LoginScreen> {
                             const SizedBox(width: Spacing.sm),
                             const Text(
                               "Facebook",
-                              style: TextStyle(
-                                color: AppColors.white,
-                              ),
+                              style: TextStyle(color: AppColors.white),
                             ),
                           ],
                         ),
@@ -269,25 +261,28 @@ class _LoginScreenState extends State<LoginScreen> {
             ),
           ),
           const SizedBox(height: Spacing.md),
-          Row(mainAxisAlignment: MainAxisAlignment.center, children: [
-            const Text(
-              "Don't have an account ?",
-              style: TextStyle(fontSize: FontSize.sm, color: AppColors.white),
-            ),
-            const SizedBox(width: Spacing.xs),
-            GestureDetector(
-              onTap: () {
-                authController.navigateToSignup();
-              },
-              child: const Text(
-                "Sign up",
-                style: TextStyle(
-                  color: AppColors.primary,
-                  fontWeight: FontWeight.bold,
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              const Text(
+                "Don't have an account ?",
+                style: TextStyle(fontSize: FontSize.sm, color: AppColors.white),
+              ),
+              const SizedBox(width: Spacing.xs),
+              GestureDetector(
+                onTap: () {
+                  authController.navigateToSignup();
+                },
+                child: const Text(
+                  "Sign up",
+                  style: TextStyle(
+                    color: AppColors.primary,
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
               ),
-            ),
-          ])
+            ],
+          ),
         ],
       ),
     );
