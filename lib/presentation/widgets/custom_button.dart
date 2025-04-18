@@ -16,7 +16,7 @@ class CustomButton extends StatelessWidget {
       this.isLoading = false});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context) { 
     return SizedBox(
       width: double.infinity,
       height: Spacing.xxl,
@@ -25,10 +25,13 @@ class CustomButton extends StatelessWidget {
               style: OutlinedButton.styleFrom(
                 foregroundColor: Colors.white,
                 side: const BorderSide(color: AppColors.white),
-                padding: const EdgeInsets.symmetric(vertical: 100),
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(Spacing.md),
                 ),
+                overlayColor: Colors.transparent,
+                splashFactory: NoSplash.splashFactory, // Disables splash effect
+                // Ensure that there's no highlight color
+                shadowColor: Colors.transparent,
               ),
               onPressed: () {
                 onTap();
@@ -44,23 +47,36 @@ class CustomButton extends StatelessWidget {
             )
           : ElevatedButton(
               style: ElevatedButton.styleFrom(
-                backgroundColor: Colors.white,
-                foregroundColor: Colors.blue,
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(Spacing.md),
-                ),
-              ),
+                  backgroundColor:
+                      isLoading == true ? Colors.white70 : Colors.white,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(Spacing.md),
+                  ),
+                  overlayColor: Colors.transparent,
+                  splashFactory:
+                      NoSplash.splashFactory, // Disables splash effect
+                  // Ensure that there's no highlight color
+                  shadowColor: Colors.transparent),
               onPressed: () {
-                onTap();
+                isLoading == true ? null : onTap();
               },
-              child: Text(
-                title,
-                style: const TextStyle(
-                  color: AppColors.primary,
-                  fontSize: FontSize.md,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
+              child: isLoading == false
+                  ? Text(
+                      title,
+                      style: const TextStyle(
+                        color: AppColors.primary,
+                        fontSize: FontSize.md,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    )
+                  : const SizedBox(
+                      width: FontSize.md, // Set the width you want
+                      height: FontSize.md, // Set the height you want
+                      child: CircularProgressIndicator(
+                        color: AppColors.primary,
+                        strokeWidth: 4,
+                      ),
+                    ),
             ),
     );
   }
