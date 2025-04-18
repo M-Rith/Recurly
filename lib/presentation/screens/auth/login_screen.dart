@@ -9,9 +9,9 @@ import 'package:heroicons/heroicons.dart';
 import 'package:recurly/presentation/widgets/custom_text_field.dart';
 
 import '../../../app/utils/email_validate.dart';
-import 'package:another_flushbar/flushbar.dart';
-import 'package:another_flushbar/flushbar_helper.dart';
-import 'package:another_flushbar/flushbar_route.dart';
+import 'package:recurly/presentation/widgets/custom_snackbar.dart';
+
+import 'package:recurly/app/data/models/status.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -62,6 +62,12 @@ class _LoginScreenState extends State<LoginScreen> {
         }
       } catch (e) {
         // Show error in Snackbar or Dialog
+        showCustomSnackbar(
+          title: "Login Failed",
+          status: MessageStatus.error,
+          message: e.toString(),
+          context: context,
+        );
       }
       setState(() {
         _isLoading = false;
@@ -165,18 +171,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   isLoading: _isLoading,
                   onTap: () async {
                     if (_formKey.currentState!.validate()) {
-                      // handleLogin();
-                      Flushbar(
-                        message:
-                            "Lorem Ipsum is simply dummy text of the printing and typesetting industry",
-                        icon: Icon(
-                          Icons.info_outline,
-                          size: 28.0,
-                          color: Colors.blue[300],
-                        ),
-                        duration: Duration(seconds: 3),
-                        leftBarIndicatorColor: Colors.blue[300],
-                      )..show(context);
+                      handleLogin();
                     }
                   },
                 ),

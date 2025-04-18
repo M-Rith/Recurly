@@ -65,15 +65,22 @@ class AuthController extends GetxController {
       return result.user;
     } on FirebaseAuthException catch (e) {
       // Handle Firebase-specific errors
+      print(e.code);
+      print(e);
       switch (e.code) {
         case 'invalid-email':
-          throw Exception("The email address is badly formatted.");
+          throw Exception('Please enter a valid email address.');
+        case 'user-disabled':
+          throw Exception('account has been disabled. Please contact support.');
         case 'user-not-found':
-          throw Exception("No user found for that email.");
+          throw Exception('No user found for that email.');
         case 'wrong-password':
-          throw Exception("Incorrect password.");
+          throw Exception('Incorrect password.');
+        case 'invalid-credential':
+          throw Exception('Invalid email or password.');
+        // Add more cases as needed
         default:
-          throw Exception("Login failed: ${e.message}");
+          throw Exception('An unknown error occurred. Please try again later.');
       }
     } catch (e) {
       // Handle any other errors
