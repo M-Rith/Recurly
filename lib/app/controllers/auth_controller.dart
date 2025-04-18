@@ -1,14 +1,12 @@
 import 'package:get/get.dart';
 
 import '../routes/app_routes.dart';
-import 'package:firebase_auth/firebase_auth.dart';
+import 'package:recurly/app/services/auth/login.dart';
+import "package:firebase_auth/firebase_auth.dart";
 
 class AuthController extends GetxController {
-  final FirebaseAuth _auth = FirebaseAuth.instance;
   var isLoggedIn = false.obs; // Reactive login state
-  var email = "".obs;
-  var password = "".obs;
-
+  var isLoading = false.obs; // Reactive login state
   void login() {
     isLoggedIn.value = true;
     Get.offAllNamed(
@@ -53,38 +51,23 @@ class AuthController extends GetxController {
     );
   }
 
-  Future<User?> loginWithEmail({
-    required String email,
-    required String password,
-  }) async {
+  Future<void> loginWithEmailAndPasssword(String email, String password) async {
     try {
-      UserCredential result = await _auth.signInWithEmailAndPassword(
-        email: email.trim(),
-        password: password.trim(),
-      );
-      return result.user;
-    } on FirebaseAuthException catch (e) {
-      // Handle Firebase-specific errors
-      print(e.code);
-      print(e);
-      switch (e.code) {
-        case 'invalid-email':
-          throw Exception('Please enter a valid email address.');
-        case 'user-disabled':
-          throw Exception('account has been disabled. Please contact support.');
-        case 'user-not-found':
-          throw Exception('No user found for that email.');
-        case 'wrong-password':
-          throw Exception('Incorrect password.');
-        case 'invalid-credential':
-          throw Exception('Invalid email or password.');
-        // Add more cases as needed
-        default:
-          throw Exception('An unknown error occurred. Please try again later.');
+      isLoading.value = true; // Set loading to true when login starts
+      User? user = await loginWithEmail(email: email, password: password);
+
+      if (user != null) {
+        Get.offAllNamed(AppRoutes.HOME);
+      } else {
+        isLoggedIn.value = false;
+        throw 'User not found or login failed.';
       }
     } catch (e) {
-      // Handle any other errors
-      throw Exception("Unexpected error: $e");
+      isLoggedIn.value = false;
+      throw e.toString();
+    } finally {
+      isLoading.value =
+          false; // Ensure loading is set to false when the operation completes
     }
   }
 }
