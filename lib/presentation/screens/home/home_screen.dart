@@ -24,10 +24,10 @@ class HomeScreen extends StatelessWidget {
                   style: TextStyle(color: AppColors.success),
                 ),
               ),
-              SizedBox(height: 20),
+              const SizedBox(height: 20),
               ElevatedButton(
                 onPressed: authController.logout,
-                child: Text(
+                child: const Text(
                   "Logout",
                   style: TextStyle(color: AppColors.primary),
                 ),
