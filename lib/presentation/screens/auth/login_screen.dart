@@ -7,7 +7,7 @@ import '../../../app/themes/font_size.dart';
 import '../../../app/themes/spacing.dart';
 import 'package:heroicons/heroicons.dart';
 import 'package:recurly/presentation/widgets/custom_text_field.dart';
-
+import '../../../app/routes/app_routes.dart';
 import 'package:recurly/presentation/widgets/custom_snackbar.dart';
 
 import 'package:recurly/app/data/models/status.dart';
@@ -23,23 +23,16 @@ class _LoginScreenState extends State<LoginScreen> {
   final _formKey = GlobalKey<FormState>();
 
   final AuthController authController = Get.find();
+
+
   final TextEditingController emailController = TextEditingController();
   final FocusNode emailFocusNode = FocusNode();
+  
   final TextEditingController passwordController = TextEditingController();
   final FocusNode passwordFocusNode = FocusNode();
 
   var showPassword = false;
-  @override
-  void initState()  {
-    // TODO: implement initState
-
-    var user = authController.user.value;
-    if (user != null) {
-      print(user.toJson());
-    }
-    authController.loadUser();
-    super.initState();
-  }
+  
 
   @override
   void dispose() {
@@ -52,8 +45,9 @@ class _LoginScreenState extends State<LoginScreen> {
 
   @override
   Widget build(BuildContext context) {
-    print(authController.user.value);
+
     final isKeyboardOpen = MediaQuery.of(context).viewInsets.bottom > 0;
+
     void handleLogin() async {
       FocusScope.of(context).requestFocus(FocusNode());
       try {
@@ -144,7 +138,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   width: double.infinity,
                   child: TextButton(
                     onPressed: () {
-                      authController.navigateToForgetPassword();
+                      Get.offAllNamed(AppRoutes.FORGET_PASSWORD);
                     },
                     child: const Text(
                       "Forgot Password?",
@@ -204,7 +198,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           ),
                         ),
                         onPressed: () {
-                          authController.navigateToAuth();
+                          Get.offAllNamed(AppRoutes.AUTH);
                         },
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.center,
@@ -236,7 +230,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           ),
                         ),
                         onPressed: () {
-                          authController.navigateToAuth();
+                          Get.offAllNamed(AppRoutes.AUTH);
                         },
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.center,
@@ -272,7 +266,7 @@ class _LoginScreenState extends State<LoginScreen> {
               const SizedBox(width: Spacing.xs),
               GestureDetector(
                 onTap: () {
-                  authController.navigateToSignup();
+                  Get.offAllNamed(AppRoutes.SIGN_UP);
                 },
                 child: const Text(
                   "Sign up",
