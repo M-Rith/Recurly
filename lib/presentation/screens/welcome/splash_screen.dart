@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:recurly/app/themes/colors.dart';
 import 'package:recurly/app/themes/font_size.dart';
 import '../../../app/controllers/auth_controller.dart';
+import '../../../app/routes/app_routes.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -21,10 +22,10 @@ class _SplashScreenState extends State<SplashScreen> {
     authController.loadUser();
     Future.delayed(const Duration(seconds: 3), () {
       if (authController.user.value != null) {
-        authController.login();
-      }
-      else {
-        authController.navigateToLogin();
+        authController.isLoggedIn.value = true;
+        Get.offAllNamed(AppRoutes.HOME);
+      } else {
+        Get.offAllNamed(AppRoutes.SPLASH_SCREEN);
       }
     });
   }

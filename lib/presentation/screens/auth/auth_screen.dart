@@ -5,6 +5,7 @@ import '../../../app/themes/spacing.dart';
 import 'package:get/get.dart';
 import '../../../app/controllers/auth_controller.dart';
 import 'package:recurly/presentation/widgets/custom_button.dart';
+import '../../../app/routes/app_routes.dart';
 class AuthScreen extends StatelessWidget {
 
  const AuthScreen({super.key});
@@ -66,7 +67,7 @@ class AuthScreen extends StatelessWidget {
             CustomButton(
               title: "Log in",
               onTap: () {
-                authController.navigateToLogin();
+                Get.offAllNamed(AppRoutes.LOGIN);
               },
             ),
             const SizedBox(
@@ -77,7 +78,7 @@ class AuthScreen extends StatelessWidget {
             CustomButton(
               title: "Sign up",
               onTap: () {
-                authController.navigateToSignup();
+                Get.offAllNamed(AppRoutes.SIGN_UP);
               },
               isOutlined: true,
             ),
