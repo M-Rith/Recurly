@@ -15,7 +15,8 @@ class AuthController extends GetxController {
     Get.offAllNamed(AppRoutes.HOME);
   }
 
-  void logout() {
+  void logout() async {
+    await clearUser();
     isLoggedIn.value = false;
     Get.offNamed(AppRoutes.LOGIN);
   }
@@ -71,21 +72,21 @@ class AuthController extends GetxController {
     var box = await Hive.openBox(_boxName);
     UserModel? storedUser = box.get('user');
     if (storedUser != null) {
-      user.value = storedUser; 
+      user.value = storedUser;
     }
   }
 
   // Update user data in Hive
   Future<void> updateUser(UserModel updatedUser) async {
-    var box = await Hive.openBox(_boxName); 
+    var box = await Hive.openBox(_boxName);
     await box.put('user', updatedUser);
     user.value = updatedUser;
   }
 
   // Clear user data from Hive
   Future<void> clearUser() async {
-    var box = await Hive.openBox(_boxName); 
-    await box.delete('user'); 
+    var box = await Hive.openBox(_boxName);
+    await box.delete('user');
     user.value = null;
   }
 }

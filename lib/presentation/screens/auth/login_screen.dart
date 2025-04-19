@@ -37,6 +37,7 @@ class _LoginScreenState extends State<LoginScreen> {
     if (user != null) {
       print(user.toJson());
     }
+    authController.loadUser();
     super.initState();
   }
 
