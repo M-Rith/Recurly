@@ -25,7 +25,7 @@ class _SplashScreenState extends State<SplashScreen> {
         authController.isLoggedIn.value = true;
         Get.offAllNamed(AppRoutes.HOME);
       } else {
-        Get.offAllNamed(AppRoutes.SPLASH_SCREEN);
+        Get.offAllNamed(AppRoutes.AUTH);
       }
     });
   }
