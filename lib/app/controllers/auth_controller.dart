@@ -7,8 +7,14 @@ import 'package:recurly/app/data/models/user_model.dart';
 import 'package:hive/hive.dart';
 
 class AuthController extends GetxController {
+
+
+  // Reactive state =====================
   var isLoggedIn = false.obs; // Reactive login state
   var isLoading = false.obs; // Reactive login state
+
+
+
   var user = Rx<UserModel?>(null); // Observable user model
   void login() {
     isLoggedIn.value = true;
