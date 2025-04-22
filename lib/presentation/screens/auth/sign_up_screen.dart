@@ -8,7 +8,8 @@ import '../../../app/themes/font_size.dart';
 import "package:heroicons/heroicons.dart";
 import 'package:recurly/presentation/widgets/custom_text_field.dart';
 import 'package:recurly/presentation/widgets/custom_button.dart';
-
+import 'package:recurly/presentation/widgets/custom_snackbar.dart';
+import 'package:recurly/app/data/models/status.dart';
 class SignUpScreen extends StatefulWidget {
   const SignUpScreen({super.key});
 
@@ -29,8 +30,8 @@ class _SignUpScreenState extends State<SignUpScreen> {
       TextEditingController();
   final FocusNode confirmPasswordFocusNode = FocusNode();
 
-  final TextEditingController fullNameController = TextEditingController();
-  final FocusNode fullNameFocusNode = FocusNode();
+  final TextEditingController displayNameController = TextEditingController();
+  final FocusNode displayNameFocusNode = FocusNode();
 
   final AuthController authController = Get.find();
   bool _checkbox = false;
@@ -50,6 +51,23 @@ class _SignUpScreenState extends State<SignUpScreen> {
   Widget build(BuildContext context) {
     final isKeyboardOpen = MediaQuery.of(context).viewInsets.bottom > 0;
 
+    void handleSignUp() async {
+      FocusScope.of(context).requestFocus(FocusNode());
+      try {
+        await authController.signUpWithEmailAndPasssword(
+          emailController.text,
+          passwordController.text,
+          displayNameController.text,
+        );
+      } catch (e) {
+        showCustomSnackbar(
+          title: "Sign Up Failed",
+          status: MessageStatus.error,
+          message: e.toString(),
+          context: context,
+        ); // No semicolon here
+      }
+    }
     return Scaffold(
       backgroundColor: AppColors.background,
       body: ListView(
@@ -100,8 +118,8 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   hintText: 'Display Name',
                   labelText: "Display Name",
                   prefixIcon: HeroIcons.user,
-                  controller: passwordController,
-                  focusNode: passwordFocusNode,
+                  controller: displayNameController,
+                  focusNode: displayNameFocusNode,
                   keyboardType: TextInputType.text,
                   validator: (value) {
                     if (value == null || value.isEmpty) {
@@ -218,14 +236,14 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   return CustomButton(
                     title: "Sign Up",
                     isLoading: authController.isLoading.value,
-                    onTap: () {
+                    onTap: () async {
                       setState(() {
                         final formValid = _formKey.currentState!.validate();
                         final checkboxValid = validateCheckbox();
 
                         if (formValid && checkboxValid) {
-                          print("Sign up");
                           // You can call your auth logic here too
+                          handleSignUp();
                         }
                       });
                     },
