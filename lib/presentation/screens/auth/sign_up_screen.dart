@@ -7,6 +7,7 @@ import '../../../app/themes/colors.dart';
 import '../../../app/themes/font_size.dart';
 import "package:heroicons/heroicons.dart";
 import 'package:recurly/presentation/widgets/custom_text_field.dart';
+import 'package:recurly/presentation/widgets/custom_button.dart';
 
 class SignUpScreen extends StatefulWidget {
   const SignUpScreen({super.key});
@@ -23,16 +24,39 @@ class _SignUpScreenState extends State<SignUpScreen> {
 
   final TextEditingController passwordController = TextEditingController();
   final FocusNode passwordFocusNode = FocusNode();
-  @override
+
+  final TextEditingController confirmPasswordController =
+      TextEditingController();
+  final FocusNode confirmPasswordFocusNode = FocusNode();
+
+  final TextEditingController fullNameController = TextEditingController();
+  final FocusNode fullNameFocusNode = FocusNode();
+
   final AuthController authController = Get.find();
+  bool _checkbox = false;
+  bool _checkboxError = false;
+
+  bool validateCheckbox() {
+    print("Checkbox $_checkbox");
+    setState(() {
+      _checkboxError = !_checkbox;
+    });
+    return _checkbox;
+  }
+
+  bool showPassword = false;
+  bool showConfirmPassword = false;
+  @override
   Widget build(BuildContext context) {
     final isKeyboardOpen = MediaQuery.of(context).viewInsets.bottom > 0;
+
     return Scaffold(
       backgroundColor: AppColors.background,
       body: ListView(
-        physics: isKeyboardOpen
-            ? const AlwaysScrollableScrollPhysics()
-            : const NeverScrollableScrollPhysics(),
+        physics:
+            isKeyboardOpen
+                ? const AlwaysScrollableScrollPhysics()
+                : const NeverScrollableScrollPhysics(),
         padding: const EdgeInsets.only(left: Spacing.md, right: Spacing.md),
         children: [
           const SizedBox(height: Spacing.xl * 2),
@@ -72,13 +96,241 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   },
                 ),
                 const SizedBox(height: Spacing.md),
+                CustomizedTextField(
+                  hintText: 'Display Name',
+                  labelText: "Display Name",
+                  prefixIcon: HeroIcons.user,
+                  controller: passwordController,
+                  focusNode: passwordFocusNode,
+                  keyboardType: TextInputType.text,
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return 'Display Name is required';
+                    }
+                    return null;
+                  },
+                ),
+                const SizedBox(height: Spacing.md),
+                CustomizedTextField(
+                  hintText: 'Password',
+                  labelText: 'Password',
+                  prefixIcon: HeroIcons.lockClosed,
+                  suffixIcon: showPassword ? HeroIcons.eyeSlash : HeroIcons.eye,
+                  obscureText: !showPassword,
+                  controller: passwordController,
+                  focusNode: passwordFocusNode,
+                  keyboardType: TextInputType.text,
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return 'Password is required';
+                    }
+                    if (value != confirmPasswordController.text) {
+                      return "Passwords don't match";
+                    }
+                    return null;
+                  },
+                  suffixIconAction: (value) {
+                    setState(() {
+                      showPassword = value;
+                    });
+                  },
+                ),
+                const SizedBox(height: Spacing.md),
+                CustomizedTextField(
+                  hintText: 'Confirm Password',
+                  labelText: 'Confirm Password',
+                  prefixIcon: HeroIcons.lockClosed,
+                  suffixIcon:
+                      showConfirmPassword ? HeroIcons.eyeSlash : HeroIcons.eye,
+                  controller: confirmPasswordController,
+                  obscureText: !showConfirmPassword,
+                  focusNode: confirmPasswordFocusNode,
+                  keyboardType: TextInputType.text,
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return 'Confirm Password is required';
+                    }
+                    if (value != passwordController.text) {
+                      return "Passwords don't match";
+                    }
+                    return null;
+                  },
+                  suffixIconAction: (value) {
+                    setState(() {
+                      showConfirmPassword = value;
+                    });
+                  },
+                ),
+                const SizedBox(height: Spacing.md),
+                // checkbox
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Padding(
+                      padding: EdgeInsets.zero,
+                      child: Transform.scale(
+                        scale: 1,
+                        child: Checkbox(
+                          materialTapTargetSize:
+                              MaterialTapTargetSize.shrinkWrap,
+                          visualDensity: const VisualDensity(
+                            horizontal: -4.0,
+                            vertical: -4.0,
+                          ),
+                          side: const BorderSide(color: AppColors.secondary),
+                          activeColor: AppColors.primary,
+                          value: _checkbox,
+                          onChanged: (value) {
+                            setState(() {
+                              _checkbox = value!;
+                            });
+                          },
+                        ),
+                      ),
+                    ),
+                    const SizedBox(width: Spacing.sm),
+                    Text(
+                      "I agree to the ",
+                      style: TextStyle(
+                        color:
+                            _checkboxError ? AppColors.error : AppColors.secondary,
+                        fontSize: FontSize.sm,
+                      ),
+                    ),
+                    GestureDetector(
+                      onTap: () {
+                        Get.offAllNamed(AppRoutes.LOGIN);
+                      },
+                      child: Text(
+                        "Terms and Conditions",
+                        style: TextStyle(
+                          color:
+                              _checkboxError ? AppColors.error: AppColors.primary,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+                const SizedBox(height: Spacing.lg),
+                Obx(() {
+                  return CustomButton(
+                    title: "Sign Up",
+                    isLoading: authController.isLoading.value,
+                    onTap: () {
+                      setState(() {
+                        final formValid = _formKey.currentState!.validate();
+                        final checkboxValid = validateCheckbox();
+
+                        if (formValid && checkboxValid) {
+                          print("Sign up");
+                          // You can call your auth logic here too
+                        }
+                      });
+                    },
+                  );
+                }),
+                const SizedBox(height: Spacing.lg),
+                const Row(
+                  children: [
+                    Expanded(
+                      child: Divider(color: AppColors.secondary, thickness: 1),
+                    ),
+                    Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 12.0),
+                      child: Text(
+                        'or continue with',
+                        style: TextStyle(
+                          color: AppColors.secondary,
+                          fontSize: 14,
+                        ),
+                      ),
+                    ),
+                    Expanded(
+                      child: Divider(color: AppColors.secondary, thickness: 1),
+                    ),
+                  ],
+                ),
+                const SizedBox(height: Spacing.lg),
+                Row(
+                  children: [
+                    // Login with Google
+                    Expanded(
+                      child: OutlinedButton(
+                        style: OutlinedButton.styleFrom(
+                          foregroundColor: Colors.white,
+                          side: const BorderSide(color: AppColors.white),
+                          padding: const EdgeInsets.symmetric(vertical: 16),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(12),
+                          ),
+                        ),
+                        onPressed: () {
+                          Get.offAllNamed(AppRoutes.AUTH);
+                        },
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            Image.asset(
+                              height: 20,
+                              width: 20,
+                              'assets/images/google.png',
+                            ),
+                            const SizedBox(width: Spacing.sm),
+                            const Text(
+                              "Google",
+                              style: TextStyle(color: AppColors.white),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                    const SizedBox(width: Spacing.md),
+                    Expanded(
+                      child: OutlinedButton(
+                        style: OutlinedButton.styleFrom(
+                          foregroundColor: Colors.white,
+                          side: const BorderSide(color: AppColors.white),
+                          padding: const EdgeInsets.symmetric(vertical: 16),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(12),
+                          ),
+                        ),
+                        onPressed: () {
+                          Get.offAllNamed(AppRoutes.AUTH);
+                        },
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            Image.asset(
+                              height: 20,
+                              width: 20,
+                              'assets/images/facebook.png',
+                            ),
+                            const SizedBox(width: Spacing.sm),
+                            const Text(
+                              "Facebook",
+                              style: TextStyle(color: AppColors.white),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+                const SizedBox(height: Spacing.md),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     const Text(
                       "Already have an account ?",
                       style: TextStyle(
-                          color: AppColors.secondary, fontSize: FontSize.sm),
+                        color: AppColors.secondary,
+                        fontSize: FontSize.sm,
+                      ),
                     ),
                     const SizedBox(width: Spacing.xs),
                     GestureDetector(
