@@ -1,6 +1,8 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 
 final FirebaseAuth _auth = FirebaseAuth.instance;
+final GoogleSignIn _googleSignIn = GoogleSignIn();
 
 Future<User?> loginWithEmail({
   required String email,
@@ -25,7 +27,7 @@ Future<User?> loginWithEmail({
       case 'wrong-password':
         throw 'Incorrect password.';
       case 'invalid-credential':
-        throw 'Invalid email or password.';
+         throw 'Invalid email or password.';
       default:
         throw 'An unknown error occurred. Please try again later.';
     }
@@ -34,3 +36,26 @@ Future<User?> loginWithEmail({
     throw "Unexpected error: $e";
   }
 }
+
+// Login with gogole
+  Future<User?> signInWithGoogle() async {
+    try {
+      final GoogleSignInAccount? googleUser = await _googleSignIn.signIn();
+      if (googleUser == null) {
+        return null; // User canceled the sign-in
+      }
+      
+      final GoogleSignInAuthentication googleAuth = await googleUser.authentication;
+      
+      final OAuthCredential credential = GoogleAuthProvider.credential(
+        accessToken: googleAuth.accessToken,
+        idToken: googleAuth.idToken,
+      );
+      
+      final UserCredential userCredential = await _auth.signInWithCredential(credential);
+      return userCredential.user;
+    } catch (error) {
+      print("Google Sign-In Error: $error");
+      return null;
+    }
+  }

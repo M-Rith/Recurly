@@ -9,10 +9,15 @@
       "client_info": {
         "mobilesdk_app_id": "1:956323306774:android:f244c1bb2dc648e96a4437",
         "android_client_info": {
-          "package_name": "com.monirith.recurly"
+          "package_name": "com.example.recurly"
         }
       },
-      "oauth_client": [],
+      "oauth_client": [
+        {
+          "client_id": "956323306774-vhng37uq0eho00p6aafgjf2t1075jk0e.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
       "api_key": [
         {
           "current_key": "AIzaSyDx6xaRX4NkkUJMCtf3h-MEaB3fbtZZbZQ"
@@ -20,7 +25,19 @@
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": []
+          "other_platform_oauth_client": [
+            {
+              "client_id": "956323306774-vhng37uq0eho00p6aafgjf2t1075jk0e.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "956323306774-u9onknse1g8dsaq2n8kmle9j6sgcsml4.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.monirith.recurly"
+              }
+            }
+          ]
         }
       }
     }

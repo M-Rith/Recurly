@@ -20,7 +20,7 @@ void main() async {
       statusBarColor: Colors.blue, // Set the color of the status bar
       statusBarIconBrightness:
           Brightness.light, // Set the icon brightness (light or dark)
-    ),
+    ) 
   );
   runApp(MyApp());
 }
