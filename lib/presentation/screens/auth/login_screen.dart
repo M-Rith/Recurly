@@ -24,15 +24,13 @@ class _LoginScreenState extends State<LoginScreen> {
 
   final AuthController authController = Get.find();
 
-
   final TextEditingController emailController = TextEditingController();
   final FocusNode emailFocusNode = FocusNode();
-  
+
   final TextEditingController passwordController = TextEditingController();
   final FocusNode passwordFocusNode = FocusNode();
 
   var showPassword = false;
-  
 
   @override
   void dispose() {
@@ -45,7 +43,6 @@ class _LoginScreenState extends State<LoginScreen> {
 
   @override
   Widget build(BuildContext context) {
-
     final isKeyboardOpen = MediaQuery.of(context).viewInsets.bottom > 0;
 
     void handleLogin() async {
@@ -61,7 +58,20 @@ class _LoginScreenState extends State<LoginScreen> {
           status: MessageStatus.error,
           message: e.toString(),
           context: context,
-        ); // No semicolon here
+        );
+      }
+    }
+
+    void handleGoogleLogin() async {
+      try {
+        await authController.loginWithGoogle();
+      } catch (e) {
+        showCustomSnackbar(
+          title: "Login Failed",
+          status: MessageStatus.error,
+          message: e.toString(),
+          context: context, // use the captured one
+        );
       }
     }
 
@@ -197,8 +207,9 @@ class _LoginScreenState extends State<LoginScreen> {
                             borderRadius: BorderRadius.circular(12),
                           ),
                         ),
-                        onPressed: () {
-                          Get.offAllNamed(AppRoutes.AUTH);
+                        onPressed: () async {
+                          print("OnPress");
+                          handleGoogleLogin();
                         },
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.center,

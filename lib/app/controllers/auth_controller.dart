@@ -89,6 +89,21 @@ class AuthController extends GetxController {
     }
   }
 
+  Future<void> loginWithGoogle() async {
+    try {
+      User? user = await signInWithGoogle();
+      if (user != null) {
+        storeUser(UserModel.fromFirebaseUser(user));
+        Get.offAllNamed(AppRoutes.HOME);
+      } else {
+        throw 'User not found or login failed.';
+      }
+    } catch (e) {
+      throw e.toString();
+    } finally {
+    }
+  }
+
   final _boxName = 'userBox';
 
   Future<void> storeUser(UserModel newUser) async {
