@@ -23,11 +23,11 @@ Future<User?> loginWithEmail({
       case 'user-disabled':
         throw 'Account has been disabled. Please contact support.';
       case 'user-not-found':
-        throw'No user found for that email.';
+        throw 'No user found for that email.';
       case 'wrong-password':
         throw 'Incorrect password.';
       case 'invalid-credential':
-         throw 'Invalid email or password.';
+        throw 'Invalid email or password.';
       default:
         throw 'An unknown error occurred. Please try again later.';
     }
@@ -38,24 +38,27 @@ Future<User?> loginWithEmail({
 }
 
 // Login with gogole
-  Future<User?> signInWithGoogle() async {
-    try {
-      final GoogleSignInAccount? googleUser = await _googleSignIn.signIn();
-      if (googleUser == null) {
-        return null; // User canceled the sign-in
-      }
-      
-      final GoogleSignInAuthentication googleAuth = await googleUser.authentication;
-      
-      final OAuthCredential credential = GoogleAuthProvider.credential(
-        accessToken: googleAuth.accessToken,
-        idToken: googleAuth.idToken,
-      );
-      
-      final UserCredential userCredential = await _auth.signInWithCredential(credential);
-      return userCredential.user;
-    } catch (error) {
-      print("Google Sign-In Error: $error");
-      return null;
+Future<User?> signInWithGoogle() async {
+  try {
+    final GoogleSignInAccount? googleUser = await _googleSignIn.signIn();
+    if (googleUser == null) {
+      return null; // User canceled the sign-in
     }
+
+    final GoogleSignInAuthentication googleAuth =
+        await googleUser.authentication;
+
+    final OAuthCredential credential = GoogleAuthProvider.credential(
+      accessToken: googleAuth.accessToken,
+      idToken: googleAuth.idToken,
+    );
+
+    final UserCredential userCredential = await _auth.signInWithCredential(
+      credential,
+    );
+    return userCredential.user;
+  } catch (error) {
+    print("Google Sign-In Error: $error");
+    return null;
   }
+}
